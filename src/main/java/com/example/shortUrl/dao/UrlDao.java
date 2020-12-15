@@ -11,8 +11,8 @@ public interface UrlDao{
     @Select("select long_url from url_map where short_url = #{shortUrl}")
     String getLongUrl(String shortUrl);
 
-    @Select("select exists (select id from url_map where short_url = #{shortUrl})")
-    boolean isExist(String shortUrl);
+    @Select("select id from url_map where short_url = #{shortUrl}")
+    Long isExist(String shortUrl);
 
     @Insert({"insert into url_map (short_url, long_url) values (#{shortUrl}, #{longUrl})"})
     void save(String shortUrl, String longUrl);

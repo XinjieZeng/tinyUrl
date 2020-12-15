@@ -1,6 +1,6 @@
 package com.example.shortUrl.web;
+import com.example.shortUrl.service.RedisService;
 import com.example.shortUrl.service.ShortUrlService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +19,10 @@ public class FrontendController {
 
     @Autowired
     private ShortUrlService shortUrlService;
+
+    @Autowired
+    private RedisService redisService;
+
     private final String LOCALHOST = "http://localhost:8080/";
 
     @GetMapping("/tinyurl")
@@ -36,7 +40,8 @@ public class FrontendController {
                     .body("the long url is empty");
         }
 
-        String shortUrl = LOCALHOST + shortUrlService.getShortUrl(request.getRequestURI().substring(9));
+        String shortUrl = LOCALHOST + redisService.getShortUrl(request.getRequestURI().substring(9));
+        //String shortUrl = LOCALHOST + shortUrlService.getShortUrl(request.getRequestURI().substring(9));
         return ResponseEntity.ok(shortUrl);
     }
 
@@ -48,7 +53,9 @@ public class FrontendController {
             return ResponseEntity.notFound().build();
         }
 
-        String longUrl = shortUrlService.getLongUrl(path);
+        //String longUrl = shortUrlService.getLongUrl(path);
+
+        String longUrl = redisService.getLongUrl(path);
 
         if (longUrl == null) {
             return ResponseEntity.notFound().build();
