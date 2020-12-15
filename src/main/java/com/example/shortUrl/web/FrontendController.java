@@ -19,6 +19,7 @@ public class FrontendController {
 
     @Autowired
     private ShortUrlService shortUrlService;
+    private final String LOCALHOST = "http://localhost:8080/";
 
     @GetMapping("/tinyurl")
     private String index() {
@@ -35,7 +36,7 @@ public class FrontendController {
                     .body("the long url is empty");
         }
 
-        String shortUrl = shortUrlService.getShortUrl(request.getRequestURI().substring(9));
+        String shortUrl = LOCALHOST + shortUrlService.getShortUrl(request.getRequestURI().substring(9));
         return ResponseEntity.ok(shortUrl);
     }
 
