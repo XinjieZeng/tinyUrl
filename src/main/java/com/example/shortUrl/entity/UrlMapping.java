@@ -1,8 +1,5 @@
 package com.example.shortUrl.entity;
-
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name="url_map")

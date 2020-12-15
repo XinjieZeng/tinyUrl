@@ -1,6 +1,4 @@
 package com.example.shortUrl.dao;
-
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
