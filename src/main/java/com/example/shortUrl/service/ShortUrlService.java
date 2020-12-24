@@ -12,23 +12,19 @@ public class ShortUrlService {
     public UrlDao urlDao;
 
     public String getShortUrl(String longUrl) {
-        String shortUrl = urlDao.getShortUrl(longUrl);
+        String shortUrl;
 
-        if (shortUrl== null) {
-            while (true) {
-                // create a random 7-letter short url
-                shortUrl = RandomStringUtils.randomAlphabetic(7);
-                if (!urlDao.isExist(shortUrl)) {
-                    urlDao.save(shortUrl, longUrl);
-                    break;
-                }
+        while (true) {
+            // create a random 7-letter short url
+            shortUrl = RandomStringUtils.randomAlphabetic(7);
+
+            if (urlDao.isExist(shortUrl) == null) {
+                urlDao.save(shortUrl, longUrl);
+                break;
             }
         }
 
         return shortUrl;
     }
 
-    public String getLongUrl(String shortUrl) {
-        return urlDao.getLongUrl(shortUrl);
-    }
 }
